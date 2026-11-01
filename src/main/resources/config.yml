@@ -1,0 +1,228 @@
+# ============================================================
+#  SmigloPatroni - konfiguracja
+#  Kolory: &c, &#RRGGBB oraz MiniMessage, np. <gradient:#FFE600:#FF8A00>tekst</gradient>
+#  (nie mieszaj gradientu z kodami & w jednej linii)
+#  Wszystkie teksty ZAWSZE w cudzyslowach!
+# ============================================================
+
+settings:
+  # Identyfikator placeholderow: %smiglo_patron%, %smiglo_god%, %smiglo_god_time%
+  identifier: smiglo
+  # Placeholdery nieznane temu pluginowi sa przekazywane do tych identyfikatorow.
+  # Dzieki temu %smiglo_players% / %smiglo_playersall% dalej dzialaja, jesli w pluginie
+  # SmigloPlayers zmienisz identifier na "smigloplayers".
+  forward-placeholders:
+    - smigloplayers
+  # AMPERSAND = zwraca kolory jako &c / &#RRGGBB (dla scoreboardow, ktore same koloruja)
+  # SECTION   = zwraca gotowe kolory (§)
+  # PLAIN     = bez kolorow
+  placeholder-color: AMPERSAND
+  placeholder-none: "&7Brak"
+  # true = efekty tylko gracz vs gracz
+  pvp-only: true
+
+roll:
+  free-days: 3
+  cost: 48
+  # Nazwa waluty pokazywana w lore. Przedmiot waluty ustawiasz komenda /apatroni currency
+  currency-name: "<gradient:#FFE600:#FF8A00>Kawałek pizzy</gradient>"
+
+god:
+  timezone: "Europe/Warsaw"
+  # Losowanie co godzine od 13:30; ostatni bog trwa do 22:30
+  start: "13:30"
+  end: "22:30"
+  interval-minutes: 60
+  draw:
+    duration-ticks: 60      # 3 sekundy
+    step-ticks: 3
+    cycle-subtitle: "&7Losowanie Boga..."
+    final-subtitle: "{desc}"
+  bossbar:
+    format: "&8| &fBóg: {name} &8| &f{desc} &8| &6({time})"
+    color: YELLOW
+    overlay: PROGRESS
+    show-when-inactive: false
+    inactive-format: "&8| &fBóg: &7brak &8| &fNastępne losowanie za &6({time})"
+
+sounds:   # klucze dzwiekow Minecrafta; puste = brak
+  gui-open: "block.chest.open"
+  roll: "entity.player.levelup"
+  error: "entity.villager.no"
+  draw-tick: "block.note_block.hat"
+  draw-final: "ui.toast.challenge_complete"
+  helmet-break: "entity.item.break"
+  block: "item.shield.block"
+  extra-hit: "entity.player.attack.crit"
+
+gui:
+  title: "&8Patroni"
+  glass-blue: BLUE_STAINED_GLASS_PANE
+  glass-white: WHITE_STAINED_GLASS_PANE
+  campfire-material: CAMPFIRE
+  campfire-slots: [3, 5, 48, 50]
+  banner-material: BLUE_BANNER
+  banner-slots: [4, 49]
+  active-lore:
+    - "&7"
+    - "&a✔ &fTo jest Twój aktualny patron"
+  dice:
+    slot: 12
+    name: "&b&lʟᴏꜱᴏᴡᴀɴɪᴇ ᴘᴀᴛʀᴏɴᴀ"
+    head:
+      owner: ""      # nick gracza, z ktorego ma byc glowka
+      texture: ""    # LUB wartosc "Value" (base64) z minecraft-heads.com - ma pierwszenstwo
+    lore:
+      - "&8x &7Patrona możesz za darmo losować co &6{days} dni"
+      - "&8x &7Koszt szybszego wylosowania &f{cost} {currency}"
+      - "&7"
+      - "&8x &7Darmowe losowanie: {free-status}"
+      - "&7"
+      - "&aKliknij &fPPM &aaby wylosować!"
+    status-active: "&aAKTYWNE"
+    status-inactive: "&cNIE AKTYWNE &8(&7{time}&8)"
+  info:
+    slot: 14
+    material: BIRCH_SIGN
+    name: "&b✱ &3&lINFORMACJE &b✱"
+    lore:
+      - "&8x &7Twój Patron: &f{patron}"
+      - "&8x &7Darmowe losowanie za: &e{free-time}"
+      - "&7"
+      - "&8x &7Co godzinę od &f{start} &7do &f{end} &7losowany jest &6Bóg&7."
+      - "&8x &7Jego bonus (&fGodzina Patrona&7) dostają &fwszyscy gracze&7."
+      - "&8x &7Bonus &fDla Patronów &7dostaje tylko gracz z danym patronem."
+      - "&7"
+      - "&8x &7Aktualny Bóg: &f{god}"
+      - "&8x &7Do końca: &6{god-time}"
+
+# ---- PATRONI ----
+# slot, weight (waga losowania), head (owner / texture), lore, god-desc (tekst na bossbarze)
+# Glowki: wklej "Value" z minecraft-heads.com w texture albo nick w owner.
+patrons:
+  freddy:
+    slot: 28
+    weight: 1
+    name: "&#855000Freddy"
+    head: { owner: "", texture: "" }
+    god-desc: "&92 Dodatkowe serca &7dla wszystkich"
+    lore:
+      - "&8x &6Dla Patronów: &9Serce dodatkowe dla gracza z patronem"
+      - "&7"
+      - "&8x &2Godzina Patrona: &92 Dodatkowe serca &7dla wszystkich"
+  bonnie:
+    slot: 29
+    weight: 1
+    name: "&#0700E0Bonnie"
+    head: { owner: "", texture: "" }
+    god-desc: "&4Efekt Siły 1 &7dla wszystkich"
+    lore:
+      - "&8x &6Dla Patronów: &4Zwiększone obrażenia"
+      - "&7"
+      - "&8x &2Godzina Patrona: &4Efekt Siły 1 &7dla wszystkich"
+  chica:
+    slot: 30
+    weight: 1
+    name: "&#FFFF00Chica"
+    head: { owner: "", texture: "" }
+    god-desc: "&#00FFF7Szansa na nadanie osłabienia"
+    lore:
+      - "&8x &#FFFF00Dla Patronów: &#FFD000Szansa na zablokowanie uderzenia"
+      - "&7"
+      - "&8x &2Godzina Patrona: &#00FFF7Szansa na nadanie osłabienia!"
+  foxy:
+    slot: 31
+    weight: 1
+    name: "&#D10000Foxy"
+    head: { owner: "", texture: "" }
+    god-desc: "&#00FFF7Efekt Szybkości 2 &7dla wszystkich"
+    lore:
+      - "&8x &6Dla Patronów: &#00FFF7Efekt szybkości 1"
+      - "&7"
+      - "&8x &#26FF26Godzina Patrona: &#00FFF7Efekt Szybkości 2 dla każdego"
+  goldenfreddy:
+    slot: 32
+    weight: 1
+    name: "&#FFD500Golden Freddy"
+    head: { owner: "", texture: "" }
+    god-desc: "&4Szansa na lewitację &7dla wszystkich"
+    lore:
+      - "&8x &6Dla Patronów: &4Szansa na zadanie serii PIORUNÓW"
+      - "&7"
+      - "&8x &#26FF26Godzina Patrona: &4Szansa na nadanie efektu lewitacji"
+  springtrap:
+    slot: 33
+    weight: 1
+    name: "&#7A8B4DSpringtrap"
+    head: { owner: "", texture: "" }
+    god-desc: "&4Szansa na extra uderzenie &7dla wszystkich"
+    lore:
+      - "&8x &6Dla Patronów: &fPoniżej 5 serc zadajemy więcej obrażeń oraz dostajemy speeda 3"
+      - "&7"
+      - "&8x &#26FF26Godzina Patrona: &4Szansa na zadanie extra uderzenia"
+  marionetka:
+    slot: 34
+    weight: 1
+    name: "&#E8E8E8Marionetka"
+    head: { owner: "", texture: "" }
+    god-desc: "&#26FFFFFajerwerki co 2 sekundy &7dla wszystkich"
+    lore:
+      - "&8x &6Dla Patronów: &#FF26F1Szansa na ściągnięcie hełmu przeciwnikowi"
+      - "&7"
+      - "&8x &#3FFF26Godzina Patrona: &7Każdy gracz otrzymuje czas oczekiwania"
+      - "&8x &7na &#26FFFFużycie kolejnej fajerwerki"
+
+# ---- WARTOSCI BONUSOW (szanse w %, poziomy: 1 = I, 2 = II ...) ----
+bonuses:
+  freddy:
+    patron-hearts: 1.0
+    god-hearts: 2.0
+  bonnie:
+    patron-damage-multiplier: 1.2
+    god-strength-level: 1
+  chica:
+    patron-block-chance: 10.0
+    god-weakness-chance: 10.0
+    god-weakness-level: 1
+    god-weakness-seconds: 5
+  foxy:
+    patron-speed-level: 1
+    god-speed-level: 2
+  goldenfreddy:
+    patron-lightning-chance: 5.0
+    patron-lightning-strikes: 3
+    patron-lightning-damage-hearts: 3.5
+    patron-lightning-delay-ticks: 10
+    god-levitation-chance: 5.0
+    god-levitation-level: 1
+    god-levitation-seconds: 3
+  springtrap:
+    patron-health-threshold-hearts: 5.0
+    patron-damage-multiplier: 1.3
+    patron-speed-level: 3
+    god-extra-hit-chance: 5.0
+    god-extra-hit-multiplier: 2.0
+  marionetka:
+    patron-helmet-chance: 5.0
+    god-firework-cooldown-seconds: 2.0
+
+messages:
+  prefix: "&8[&bPatroni&8] &7"
+  player-only: "{prefix}&cTa komenda jest tylko dla graczy."
+  no-permission: "{prefix}&cBrak uprawnień."
+  rolled: "{prefix}Wylosowałeś patrona: {patron}&7!"
+  no-currency: "{prefix}&cAdministrator nie ustawił jeszcze waluty do szybszego losowania."
+  not-enough: "{prefix}&cDarmowe losowanie będzie za &e{time}&c. Szybsze kosztuje &f{cost}x {currency}&c."
+  god-drawn: "{prefix}&7Wylosowano Boga: {name} &8| &7{desc}"
+  draw-busy: "{prefix}&cLosowanie Boga właśnie trwa."
+  block-victim: "&e&lZablokowano uderzenie!"
+  block-attacker: "&cTwoje uderzenie zostało zablokowane!"
+  extra-hit: "&6&lExtra Hit!"
+  currency-set: "{prefix}&aUstawiono walutę na trzymany przedmiot."
+  currency-hold: "{prefix}&cTrzymaj w ręce przedmiot, który ma być walutą."
+  unknown-patron: "{prefix}&cNie ma takiego patrona."
+  player-not-found: "{prefix}&cNie znaleziono gracza."
+  set-done: "{prefix}&aUstawiono patrona {patron} &adla &f{player}&a."
+  reset-done: "{prefix}&aZresetowano czas darmowego losowania dla &f{player}&a."
+  reloaded: "{prefix}&aPrzeładowano konfigurację."
+  admin-usage: "{prefix}&7/apatroni &fcurrency &8| &fwylosuj [patron] &8| &fset <gracz> <patron|none> &8| &fresetcd <gracz> &8| &freload"

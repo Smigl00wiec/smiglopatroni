@@ -1,0 +1,19 @@
+name: SmigloPatroni
+main: pl.smiglo.patroni.SmigloPatroni
+version: 1.0.0
+api-version: '1.21'
+softdepend: [PlaceholderAPI]
+author: Smiglo
+description: Patroni (animatroniki), losowanie, Godzina Patrona i bonusy.
+commands:
+  patron:
+    description: Otwiera menu patronow
+    aliases: [patroni]
+    usage: /patron
+  apatroni:
+    description: Komendy administracyjne patronow
+    usage: /apatroni <currency|wylosuj|set|resetcd|reload>
+    permission: smiglopatroni.admin
+permissions:
+  smiglopatroni.admin:
+    default: op
